@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GESP题解索引查询 | 洛谷题解导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 70%;
+            padding: 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #667eea;
+        }
+
+        .search-box button {
+            width: 25%;
+            padding: 12px 15px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+
+        .search-box button:hover {
+            background-color: #5a6fd8;
+        }
+
+        .search-box .tips {
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .result-area {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 200px;
+        }
+
+        .result-area h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #444;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 10px;
+        }
+
+        .solution-card {
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            background-color: #f8f9fc;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+
+        .solution-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .solution-card p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .solution-card a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .solution-card a:hover {
+            color: #5a6fd8;
+            text-decoration: underline;
+        }
+
+        .empty-tip {
+            text-align: center;
+            color: #999;
+            font-size: 1.1rem;
+            padding: 50px 0;
+        }
+
+        .btn-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-group button {
+            padding: 10px 20px;
+            background-color: #764ba2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-group button:hover {
+            background-color: #684293;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #999;
+            font-size: 0.9rem;
+            padding: 20px 0;
+        }
+
+        /* 响应式适配手机 */
+        @media (max-width: 768px) {
+            .search-box input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .search-box button {
+                width: 100%;
+                margin-left: 0;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <header>
+            <h1>GESP五级题解索引查询</h1>
+            <p>以题目名为索引，快速查找洛谷题解链接与核心考点</p>
+        </header>
+
+        <!-- 搜索区域 -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="请输入题目名/关键词（如：烹饪问题、有趣的数字和）">
+            <button onclick="searchSolution()">查询题解</button>
+            <div class="tips">
+                提示：输入完整题目名可精确匹配，输入关键词可模糊匹配；输入「全部」可查看所有题解
+            </div>
+        </div>
+
+        <!-- 结果展示区域 -->
+        <div class="result-area" id="resultArea">
+            <h2>查询结果</h2>
+            <div class="empty-tip">请输入关键词并点击查询，或点击下方按钮查看全部题解</div>
+        </div>
+
+        <!-- 功能按钮组 -->
+        <div class="btn-group">
+            <button onclick="showAllSolutions()">查看全部题解</button>
+            <button onclick="clearSearch()">清空查询</button>
+        </div>
+
+        <!-- 页脚 -->
+        <footer>
+            GESP题解索引 | 洛谷题解导航 © 2026
+        </footer>
+    </div>
+
+    <script>
+        // 题解索引数据（核心数据源）
+        const solutionIndex = {
+            "P14074 [GESP202509 五级] 有趣的数字和": {
+                url: "https://www.luogu.me/article/t71f1ls0",
+                corePoint: "数学，数论，前缀和，区间和",
+                difficulty: "五级"
+            },
+            "P14917 [GESP202512 五级] 数字移动": {
+                url: "https://www.luogu.me/article/rskp8voy",
+                corePoint: "二分查找，贪心，数学",
+                difficulty: "五级"
+            },
+            "B3929 [GESP202312 五级] 小杨的幸运数": {
+                url: "https://www.luogu.me/article/yi5v0sjq",
+                corePoint: "埃氏筛法，二分查找，数论",
+                difficulty: "五级"
+            },
+            "B3930 [GESP202312 五级] 烹饪问题": {
+                url: "https://www.luogu.me/article/q5qgq73q",
+                corePoint: "贪心，数论",
+                difficulty: "五级"
+            },
+            "B4050 [GESP202409 五级] 挑战怪物": {
+                url: "https://www.luogu.me/article/itt2knxf",
+                corePoint: "贪心，数论，枚举",
+                difficulty: "五级"
+            },
+            "B4070 [GESP202412 五级] 奇妙数字": {
+                url: "https://www.luogu.me/article/hgwmxw58",
+                corePoint: "贪心，数学，数论",
+                difficulty: "五级"
+            }
+        };
+
+        /**
+         * 搜索题解函数（核心逻辑）
+         */
+        function searchSolution() {
+            const keyword = document.getElementById("searchInput").value.trim();
+            const resultArea = document.getElementById("resultArea");
+            
+            // 空输入处理
+            if (!keyword) {
+                resultArea.innerHTML = `<h2>查询结果</h2><div class="empty-tip">请输入查询关键词！</div>`;
+                return;
+            }
+
+            // 查看全部的快捷处理
+            if (keyword === "全部") {
+                showAllSolutions();
+                return;
+            }
+
+            // 匹配题解（精确匹配优先，模糊匹配兜底）
+            let matchResult = [];
+            for (const [title, detail] of Object.entries(solutionIndex)) {
+                if (title === keyword) {
+                    matchResult = [[title, detail]]; // 精确匹配直接覆盖
+                    break;
+                } else if (title.includes(keyword)) {
+                    matchResult.push([title, detail]);
+                }
+            }
+
+            // 渲染结果
+            renderResult(matchResult);
+        }
+
+        /**
+         * 展示所有题解
+         */
+        function showAllSolutions() {
+            const allResult = Object.entries(solutionIndex);
+            renderResult(allResult);
+            document.getElementById("searchInput").value = ""; // 清空输入框
+        }
+
+        /**
+         * 清空查询结果
+         */
+        function clearSearch() {
+            const resultArea = document.getElementById("resultArea");
+            resultArea.innerHTML = `<h2>查询结果</h2><div class="empty-tip">请输入关键词并点击查询，或点击下方按钮查看全部题解</div>`;
+            document.getElementById("searchInput").value = "";
+        }
+
+        /**
+         * 渲染查询结果到页面
+         * @param {Array} result - 匹配的题解数组
+         */
+        function renderResult(result) {
+            const resultArea = document.getElementById("resultArea");
+            
+            if (result.length === 0) {
+                // 无匹配结果
+                resultArea.innerHTML = `<h2>查询结果</h2><div class="empty-tip">未找到相关题解，请检查关键词！</div>`;
+                return;
+            }
+
+            // 有匹配结果，拼接HTML
+            let html = `<h2>查询结果（共${result.length}条）</h2>`;
+            result.forEach(([title, detail]) => {
+                html += `
+                <div class="solution-card">
+                    <h3>${title}</h3>
+                    <p><strong>题解链接：</strong><a href="${detail.url}" target="_blank">${detail.url}</a></p>
+                    <p><strong>核心考点：</strong>${detail.corePoint}</p>
+                    <p><strong>题目难度：</strong>${detail.difficulty}</p>
+                </div>
+                `;
+            });
+            resultArea.innerHTML = html;
+        }
+
+        // 按回车键触发搜索
+        document.getElementById("searchInput").addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                searchSolution();
+            }
+        });
+    </script>
+</body>
+</html>
