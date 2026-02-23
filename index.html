@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GESP题解索引查询 | 洛谷题解导航</title>
+    <title>题解索引查询 | 题解导航</title>
     <style>
         * {
             margin: 0;
@@ -191,8 +191,8 @@
     <div class="container">
         <!-- 页面头部 -->
         <header>
-            <h1>GESP五级题解索引查询</h1>
-            <p>以题目名为索引，快速查找洛谷题解链接与核心考点</p>
+            <h1>题解索引查询</h1>
+            <p>以题目名为索引，快速查找题解链接与核心考点</p>
         </header>
 
         <!-- 搜索区域 -->
@@ -218,7 +218,7 @@
 
         <!-- 页脚 -->
         <footer>
-            GESP题解索引 | 洛谷题解导航 © 2026
+            题解索引查询 | 题解导航
         </footer>
     </div>
 
@@ -233,12 +233,14 @@
             "P14917 [GESP202512 五级] 数字移动": {
                 url: "https://www.luogu.me/article/rskp8voy",
                 corePoint: "二分查找，贪心，数学",
-                difficulty: "五级"
+                difficulty: "五级",
+	"Explanatory Video": "https://www.bilibili.com/video/BV1BTr5BuEq1/?spm_id_from=333.337.search-card.all.click"
             },
             "B3929 [GESP202312 五级] 小杨的幸运数": {
                 url: "https://www.luogu.me/article/yi5v0sjq",
                 corePoint: "埃氏筛法，二分查找，数论",
-                difficulty: "五级"
+                difficulty: "五级",
+	"Explanatory Video": "https://www.bilibili.com/video/BV1NkBaBbEQP/?spm_id_from=333.1387.search.video_card.click"
             },
             "B3930 [GESP202312 五级] 烹饪问题": {
                 url: "https://www.luogu.me/article/q5qgq73q",
@@ -248,12 +250,14 @@
             "B4050 [GESP202409 五级] 挑战怪物": {
                 url: "https://www.luogu.me/article/itt2knxf",
                 corePoint: "贪心，数论，枚举",
-                difficulty: "五级"
+                difficulty: "五级",
+                "Explanatory Video": "https://www.bilibili.com/video/BV1W1BaBxEM6/?spm_id_from=333.1387.search.video_card.click"
             },
             "B4070 [GESP202412 五级] 奇妙数字": {
                 url: "https://www.luogu.me/article/hgwmxw58",
                 corePoint: "贪心，数学，数论",
-                difficulty: "五级"
+                difficulty: "五级",
+	"Explanatory Video": "https://www.bilibili.com/video/BV1C1BaBxEvj/?spm_id_from=333.1387.search.video_card.click"
             }
         };
 
@@ -331,6 +335,7 @@
                     <p><strong>题解链接：</strong><a href="${detail.url}" target="_blank">${detail.url}</a></p>
                     <p><strong>核心考点：</strong>${detail.corePoint}</p>
                     <p><strong>题目难度：</strong>${detail.difficulty}</p>
+                    ${detail["Explanatory Video"] ? `<p><strong>讲解视频：</strong><a href="${detail["Explanatory Video"]}" target="_blank">点击查看讲解视频</a></p>` : ''}
                 </div>
                 `;
             });
@@ -345,5 +350,4 @@
         });
     </script>
 </body>
-
 </html>
